@@ -1,4 +1,4 @@
-import { computed, ref, reactive, watch } from "vue";
+import { computed, ref, reactive } from "vue";
 import {
   arrayToArgString,
   getBooleanFlag,
@@ -7,6 +7,7 @@ import {
   stringifyEnvVarTuple,
   formatStringArg,
 } from "./format";
+import { startNotification } from "./notification";
 
 export function useGenerator() {
   const useLongFlags = ref(false);
@@ -37,7 +38,7 @@ export function useGenerator() {
 
   function getShareLink() {
     const q = btoa(JSON.stringify(state));
-    return `${window.location.origin}/?q=${q}`;
+    return `${window.location.href}?q=${q}`;
   }
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -114,20 +115,48 @@ export function useGenerator() {
     return navigator.clipboard.writeText(text);
   }
 
-  function copyCommand(): Promise<void> {
-    return copyText(command.value);
+  async function copyCommand(): Promise<void> {
+    await copyText(command.value);
+    startNotification("Command copied!");
   }
 
-  function copyShareLink(): Promise<void> {
-    return copyText(getShareLink());
+  async function copyShareLink(): Promise<void> {
+    await copyText(getShareLink());
+    startNotification("URL copied!");
   }
+
+  const isValidImage = computed(() => !!state.imageId.length);
+  const isValidRestartPolicy = computed(() =>
+    ["no", "unless-stopped", "always", "on-failure", ""].includes(
+      state.restartPolicy
+    )
+  );
+  const isValidPullPolicy = computed(() =>
+    ["always", "missing", "never", ""].includes(state.pullPolicy)
+  );
+
+  const hasError = computed(
+    () =>
+      !(
+        isValidImage.value &&
+        isValidRestartPolicy.value &&
+        isValidPullPolicy.value
+      )
+  );
 
   return {
     state,
-    command,
-    copyCommand,
     useLongFlags,
+
+    copyCommand,
     getShareLink,
     copyShareLink,
+
+    command,
+
+    hasError,
+    isValidImage,
+    isValidRestartPolicy,
+    isValidPullPolicy,
   };
 }

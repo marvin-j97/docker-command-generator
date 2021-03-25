@@ -14,8 +14,14 @@
       :placeholder="placeholder"
       @input="updateByEvent"
       style="width: 100%"
+      :class="{ error }"
     />
-    <div class="hint" v-if="hint">{{ hint }}</div>
+    <div v-if="error" class="error-message">
+      {{ error }}
+    </div>
+    <div v-else-if="hint" class="hint">
+      {{ hint }}
+    </div>
   </div>
 </template>
 
@@ -33,6 +39,10 @@ export default defineComponent({
       type: String,
     },
     hint: {
+      required: false,
+      type: String,
+    },
+    error: {
       required: false,
       type: String,
     },
@@ -65,10 +75,39 @@ export default defineComponent({
 </script>
 
 <style>
+.error-message {
+  color: #ff4055 !important;
+  margin-top: 5px;
+  font-size: 1rem;
+  font-family: monospace;
+}
+
 .hint {
-  margin-top: 4px;
+  margin-top: 5px;
   font-size: 1rem;
   font-family: monospace;
   opacity: 0.4 !important;
+}
+
+input.error {
+  border-left: 4px solid #ff4055;
+}
+
+input:focus {
+  background: #282828;
+}
+
+input:hover {
+  filter: brightness(0.9);
+}
+
+textarea,
+input {
+  outline: none;
+  transition: background-color 0.1s ease;
+  transition: border-color 0.15s ease;
+  transition: filter 0.1s ease;
+  border: none;
+  border-left: 4px solid transparent;
 }
 </style>

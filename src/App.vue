@@ -25,21 +25,25 @@
         GitHub
       </a>
     </div>
-    <div style="margin-left: 10px; margin-right: 10px; opacity: 0.5">|</div>
+    <!-- <div style="margin-left: 10px; margin-right: 10px; opacity: 0.5">|</div>
     <div>
-      <a href="#" target="_blank" class="hover">DONATE</a>
-    </div>
+      <a href="#" target="_blank" class="hover">Donate</a>
+    </div> -->
+
+    <notification />
   </footer>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import CommandGenerator from "./components/CommandGenerator.vue";
+import Notification from "./components/Notification.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     CommandGenerator,
+    Notification,
   },
 });
 </script>
@@ -69,11 +73,12 @@ a {
 }
 
 .hover {
+  cursor: pointer;
   transition: filter 0.1s ease-in-out;
 }
 
 .hover:hover {
-  filter: brightness(0.75);
+  filter: brightness(0.66);
 }
 
 body {
@@ -91,7 +96,7 @@ footer {
   text-align: center;
 }
 
-footer > a {
-  font-size: 1.1rem;
+footer a {
+  font-size: 1.25rem;
 }
 </style>
