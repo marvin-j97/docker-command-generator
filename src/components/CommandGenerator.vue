@@ -21,24 +21,29 @@
 
     <div>
       <checkbox v-model="state.detach" label="Detach" />
-      <checkbox v-model="state.interactive" label="Interactive" />
-      <checkbox v-model="state.tty" label="TTY" />
-      <checkbox v-model="state.readOnly" label="Read-only" />
       <checkbox
         v-model="state.disableHealthcheck"
         label="Disable health check"
       />
       <checkbox v-model="state.disableOOMKiller" label="Disable OOM Killer" />
+      <checkbox v-model="state.interactive" label="Interactive" />
+      <checkbox v-model="state.privileged" label="Privileged" />
+      <checkbox v-model="state.readOnly" label="Read-only" />
       <checkbox
         v-model="state.autoRemoveContainer"
         label="Remove the container when it exits"
       />
-      <checkbox v-model="state.privileged" label="Privileged" />
+      <checkbox v-model="state.tty" label="TTY" />
     </div>
 
     <hr />
 
     <div>
+      <text-field
+        v-model="state.containerCommand"
+        placeholder="Command (optional)"
+        style="width: 100%"
+      />
       <text-field
         v-model="state.containerName"
         placeholder="Container name"
@@ -52,14 +57,6 @@
         style="width: 100%; margin-bottom: 20px"
       />
       <text-field
-        v-model="state.restartPolicy"
-        placeholder="Restart policy"
-        label="Restart policy (optional)"
-        style="width: 100%; margin-bottom: 20px"
-        hint="Values: no, unless-stopped, always, on-failure[:max-retries]"
-        :error="!isValidRestartPolicy ? 'Invalid restart policy' : ''"
-      />
-      <text-field
         v-model="state.pullPolicy"
         placeholder="Pull policy"
         label="Pull policy (optional)"
@@ -68,15 +65,18 @@
         :error="!isValidPullPolicy ? 'Invalid pull policy' : ''"
       />
       <text-field
-        v-model="state.workDir"
-        placeholder="Working directory"
-        label="Working directory (optional)"
+        v-model="state.restartPolicy"
+        placeholder="Restart policy"
+        label="Restart policy (optional)"
         style="width: 100%; margin-bottom: 20px"
+        hint="Values: no, unless-stopped, always, on-failure[:max-retries]"
+        :error="!isValidRestartPolicy ? 'Invalid restart policy' : ''"
       />
       <text-field
-        v-model="state.containerCommand"
-        placeholder="Command"
-        style="width: 100%"
+        v-model="state.workDir"
+        placeholder="Working directory (optional)"
+        label="Working directory (optional)"
+        style="width: 100%; margin-bottom: 20px"
       />
     </div>
 
