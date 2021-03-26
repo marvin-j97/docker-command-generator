@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h4 class="title">
+    <div class="title">
       <a
         href="https://docs.docker.com/engine/reference/commandline/run"
         target="_blank"
@@ -8,9 +8,31 @@
         >docker run</a
       >
       command generator
-    </h4>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <div>
+        <a
+          style="font-size: 1.1rem"
+          href="https://github.com/marvin-j97/docker-run-generator"
+          target="_blank"
+          class="hover"
+        >
+          GitHub
+        </a>
+      </div>
+      <div style="margin-left: 10px; margin-right: 10px; opacity: 0.5">|</div>
+      <div>
+        <a
+          style="font-size: 1.1rem"
+          href="https://www.buymeacoffee.com/marvin.j97"
+          target="_blank"
+          class="hover"
+          >Donate</a
+        >
+      </div>
+    </div>
   </header>
-  <main>
+  <main style="margin-top: 20px">
     <div style="width: 550px">
       <command-generator style="margin-bottom: 40px" />
     </div>
@@ -27,7 +49,12 @@
     </div>
     <div style="margin-left: 10px; margin-right: 10px; opacity: 0.5">|</div>
     <div>
-      <a href="https://www.buymeacoffee.com/marvin.j97" target="_blank" class="hover">Donate</a>
+      <a
+        href="https://www.buymeacoffee.com/marvin.j97"
+        target="_blank"
+        class="hover"
+        >Donate
+      </a>
     </div>
   </footer>
   <notification />
@@ -63,6 +90,8 @@ main {
   font-family: monospace;
   font-size: 1.5rem;
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
 
 a {
